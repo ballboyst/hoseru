@@ -4,14 +4,14 @@ weather-forecast-app
 
 ## 技術構成
 
--react
--Next.js
--tailWind
+- react
+- Next.js
+- tailWind
 
 ### 1. env ファイルを作成
 
 - ルートディレクトリ直下に.envファイルを作成
--「.env.sample」の記述をコピー
+- 「.env.sample」の記述をコピー
 
 ```
 cd hoseru
