@@ -1,9 +1,30 @@
+"use client";
+
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { WetherForecast } from "../components/WetherForecastToday";
 import { WetherForecastThisWeek } from "../components/WetherForecastThisWeek";
 import { WetherForecastThreeDays } from "../components/WetherForecastThreeDays";
+import Link from "next/link";
 
 export default function Home() {
+  const pathname = usePathname();
+  let WeatherComponent;
+
+  switch (pathname){
+    case "/":
+      WeatherComponent = WetherForecast;
+      break;
+    case "/three-days":
+      WeatherComponent = WetherForecastThreeDays;
+      break;
+    case "/weekly":
+      WeatherComponent = WetherForecastThisWeek;
+      break;
+    default:
+      WeatherComponent = WetherForecast;
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -25,12 +46,20 @@ export default function Home() {
 
       <div>
       <h2 className="mb-3 text-2xl font-semibold">今日の天気</h2>
-      <WetherForecast />
-      <h2 className="mb-3 text-2xl font-semibold">3日間の天気</h2>
-      <WetherForecastThreeDays />
-      <h2 className="mb-3 text-2xl font-semibold">週間天気</h2>
-      <WetherForecastThisWeek />
+      <WeatherComponent />
       </div>
+
+      <nav className="mt-5">
+        <Link href="/" className="mr-4">
+          今日の天気
+        </Link>
+        <Link href="/three-days" className="mr-4">
+          3日間の天気
+        </Link>
+        <Link href="/weekly">
+          週間天気
+        </Link>
+      </nav>
     </main>
   );
 }

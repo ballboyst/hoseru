@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { WetherForecast } from "../../components/WetherForecastToday"
+import { WetherForecastThreeDays } from "../../components/WetherForecastThreeDays";
 
 const page = () => {
     return (
         <div>
             <h1>天気予報アプリhoseru?</h1>
-            < WetherForecast />
+            < WetherForecastThreeDays />
         </div>
     );
 };
