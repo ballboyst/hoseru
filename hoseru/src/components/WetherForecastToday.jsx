@@ -2,6 +2,21 @@ import React from "react"
 import "../styles/styles.css"
 
 export const WetherForecast = () => {
+    const latitude = 35.6895; // 東京の緯度
+    const longitude = 139.6917; // 東京の経度
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,wind_speed_10m`;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // 必要なデータを処理する
+        const hourlyData = data.hourly;
+        console.log(`時間ごとの気温: ${hourlyData.temperature_2m}`);
+        console.log(`時間ごとの降水量: ${hourlyData.precipitation_probability}`);
+    })
+    .catch(error => console.error('Error:', error));
+
     return (
         <table border="1">
             <thead>
