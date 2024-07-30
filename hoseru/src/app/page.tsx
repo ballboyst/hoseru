@@ -8,28 +8,11 @@ import Link from "next/link";
 import Layout from "./layout";
 
 export default function Home() {
-  const pathname = usePathname();
-  let WeatherComponent;
-
-  switch (pathname){
-    case "/":
-      WeatherComponent = WetherForecast;
-      break;
-    case "/three-days":
-      WeatherComponent = WetherForecastThreeDays;
-      break;
-    case "/weekly":
-      WeatherComponent = WetherForecastThisWeek;
-      break;
-    default:
-      WeatherComponent = WetherForecast;
-  }
 
   return (
-    <Layout>
-      <h2 className="mb-3 text-2xl font-semibold">
-        <WetherForecast />
-      </h2>
-    </Layout>
-  );
+    <>
+      <h4 className="text-2xl text-center">今日の天気</h4>
+      <WetherForecast />
+    </>
+      );
 }

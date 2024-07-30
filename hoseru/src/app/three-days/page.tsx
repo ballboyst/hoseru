@@ -4,7 +4,7 @@ import { WetherForecastThreeDays } from "../../components/WetherForecastThreeDay
 const page = () => {
     return (
         <div>
-            <h1>天気予報アプリhoseru?</h1>
+            <h1>３日間の天気</h1>
             < WetherForecastThreeDays />
         </div>
     );
