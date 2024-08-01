@@ -52,14 +52,14 @@ export default function layout({children}) {
           </div>
 
           <nav className="mt-5">
-            <Link href="/" className="mr-8">
-              今日の天気
+            <Link href="/" className="mr-6">
+              今日
             </Link>
-            <Link href="/three-days" className="mr-8">
-              3日間の天気
+            <Link href="/three-days" className="mr-6">
+              3日間
             </Link>
             <Link href="/weekly">
-              週間天気
+              週間
             </Link>
           </nav>
         </main>

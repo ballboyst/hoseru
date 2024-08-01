@@ -1,65 +1,51 @@
-import React from "react"
-import "../styles/styles.css"
+"use client"; // これを追加
+
+import React from "react";
+import "../styles/styles.css";
+import { useEffect, useState } from "react";
 
 export const WetherForecastThisWeek = () => {
+    const latitude = 34.76140; // 東京の緯度
+    const longitude = 137.70141; // 東京の経度
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,precipitation_probability&timezone=Asia/Tokyo`;
+
+    const [forecastData, setForecastData] = useState(null);
+
+    useEffect(() => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setForecastData(data.hourly);
+                console.log(data.hourly);
+            })
+            .catch(error => console.error('Error:', error));
+    }, [url]);
+
     return (
         <table border="1">
             <thead>
                 <tr>
-                    <th>情報元</th>
-                    <th>今日</th>
-                    <th>明日</th>
-                    <th>明後日</th>
-                    <th>明々後日</th>
-                    <th>4日後</th>
-                    <th>5日後</th>
-                    <th>6日後</th>
-                    <th>7日後</th>
+                    <th>時間</th>
+                    <th>気温 (°C)</th>
+                    <th>降水量 (mm)</th>
+                    <th>降水確率 (%)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Yahoo天気</td>
-                    <th>
-                        <p>晴れ</p>
-                        <p>0%</p>
-                    </th>
-                    <th>
-                        <p>晴れ</p>
-                        <p>0%</p>
-                    </th>
-                    <th>
-                        <p>晴れ</p>
-                        <p>10%</p>
-                    </th>
-                    <th>曇り50%</th>
-                    <th>雨80%</th>
-                    <th>雨80%</th>
-                    <th>晴れ20%</th>
-                    <th>晴れ20%</th>
-                </tr>
-                <tr>
-                    <td>Open-Metro</td>
-                    <th>晴れ0%</th>
-                    <th>晴れ10%</th>
-                    <th>晴れ20%</th>
-                    <th>曇り50%</th>
-                    <th>雨100%</th>
-                    <th>雨90%</th>
-                    <th>曇り20%</th>
-                    <th>曇り20%</th>
-                </tr>
-                <tr>
-                    <td>Free Wether</td>
-                    <th>晴れ0%</th>
-                    <th>晴れ0%</th>
-                    <th>晴れ10%</th>
-                    <th>雨60%</th>
-                    <th>雨80%</th>
-                    <th>雨80%</th>
-                    <th>雨20%</th>
-                    <th>雨20%</th>
-                </tr>
+                {forecastData && forecastData.time.map((time, index) => {
+                    // 12時のデータのみ表示
+                    if (time.endsWith("12:00")) { // 12時の時間形式でチェック
+                        return (
+                            <tr key={index}>
+                                <td>{time}</td>
+                                <td>{forecastData.temperature_2m[index]}</td>
+                                <td>{forecastData.precipitation[index]}</td>
+                                <td>{forecastData.precipitation_probability[index]}</td>
+                            </tr>
+                        );
+                    }
+                    return null; // それ以外は表示しない
+                })}
             </tbody>
         </table>
     );
