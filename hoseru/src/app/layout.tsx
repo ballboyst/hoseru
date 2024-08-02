@@ -8,7 +8,7 @@ import { WetherForecastThreeDays } from "../components/WetherForecastThreeDays";
 import Link from "next/link";
 import "./globals.css";
 
-export default function layout({children}) {
+export default function Layout({children}:{children: React.ReactNode}) {
   const pathname = usePathname();
   let WeatherComponent;
 
