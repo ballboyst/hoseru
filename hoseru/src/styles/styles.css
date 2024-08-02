@@ -1,0 +1,9 @@
+/* styles.css */
+table {
+    border-collapse: collapse; /* ボーダーを重ねない */
+    width: 100%; /* 必要に応じて幅を調整 */
+}
+th, td {
+    border: 1px solid #000; /* ボーダーを設定 */
+    padding: 8px; /* パディングを追加 */
+}
