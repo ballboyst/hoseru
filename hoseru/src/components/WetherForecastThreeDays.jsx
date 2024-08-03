@@ -10,37 +10,72 @@ export const WetherForecastThreeDays = () => {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,precipitation_probability&timezone=Asia/Tokyo`;
 
     const [forecastData, setForecastData] = useState(null);
+    const urlLivedoor = 'https://weather.tsukumijima.net/api/forecast/city/220040';
+    const [forecastDataLivedoor,setForecastDataLivedoor] = useState(null);
+    const [detailText,setDetailText]= useState("天気の概要");
 
     useEffect(() => {
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                setForecastData(data.hourly);
-                console.log(data.hourly);
-            })
-            .catch(error => console.error('Error:', error));
+        const fetchData = async () => {
+            try {
+                const responseMeteo = await fetch(url);
+                const dataMeteo = await responseMeteo.json();
+                setForecastData(dataMeteo.hourly);
+                console.log(dataMeteo.hourly);
+
+                const responseLivedoor = await fetch(urlLivedoor);
+                const dataLivedoor = await responseLivedoor.json();
+                setForecastDataLivedoor(dataLivedoor.forecasts);
+                setDetailText(dataLivedoor.description);
+                console.log(dataLivedoor.forecasts);
+                console.log(dataLivedoor.description);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
     }, [url]);
 
     return (
+        <div>
+        <p>{detailText.bodyText}</p>
         <table border="1">
             <thead>
                 <tr>
                     <th>時間</th>
                     <th>気温 (°C)</th>
                     <th>降水量 (mm)</th>
-                    <th>降水確率 (%)</th>
+                    <th>降水確率(meteo) (%)</th>
+                    <th>降水確率(livedoor) (%)</th>
                 </tr>
             </thead>
             <tbody>
-                {forecastData && forecastData.time.slice(0,72).map((time, index) => {
+                {forecastData && forecastData.time.slice(0, 72).map((time, index) => {
                     // 3時間ごとに表示
-                    if (index % 8 === 0) {
+                    if (index % 6 === 0) {
+                        let livedoorChance = "Loading...";
+                        if (forecastDataLivedoor) {
+                            const livedoorIndex = Math.floor(index / 6);
+                            // Livedoorのデータが存在している場合
+                            if (livedoorIndex < forecastDataLivedoor.length) {
+                                const forecast = forecastDataLivedoor[livedoorIndex];
+                                // 時間帯に基づく降水確率を取得
+                                const hourKey = time.slice(0, 13); // 例: "2023-10-10T00"
+                                livedoorChance = forecast[`${hourKey}_06`] || 
+                                                 forecast[`${hourKey}_12`] || 
+                                                 forecast[`${hourKey}_18`] || 
+                                                 forecast[`${hourKey}_24`] || 
+                                                 "N/A";
+                            }
+                        }
+
                         return (
                             <tr key={index}>
                                 <td>{time}</td>
                                 <td>{forecastData.temperature_2m[index]}</td>
                                 <td>{forecastData.precipitation[index]}</td>
                                 <td>{forecastData.precipitation_probability[index]}</td>
+                                <td>{livedoorChance}</td>
                             </tr>
                         );
                     }
@@ -48,5 +83,6 @@ export const WetherForecastThreeDays = () => {
                 })}
             </tbody>
         </table>
+        </div>
     );
 };
