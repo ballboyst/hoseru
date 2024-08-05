@@ -22,12 +22,12 @@ export const WetherForecastThisWeek = () => {
                 setForecastData(dataMeteo.hourly);
                 console.log(dataMeteo.hourly);
 
-                const responseLivedoor = await fetch(urlLivedoor);
-                const dataLivedoor = await responseLivedoor.json();
-                setForecastDataLivedoor(dataLivedoor.forecasts);
-                setDetailText(dataLivedoor.description);
-                console.log(dataLivedoor.forecasts);
-                console.log(dataLivedoor.description);
+                // const responseLivedoor = await fetch(urlLivedoor);
+                // const dataLivedoor = await responseLivedoor.json();
+                // setForecastDataLivedoor(dataLivedoor.forecasts);
+                // setDetailText(dataLivedoor.description);
+                // console.log(dataLivedoor.forecasts);
+                // console.log(dataLivedoor.description);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -38,7 +38,7 @@ export const WetherForecastThisWeek = () => {
 
     return (
         <div>
-            <p>{detailText.bodyText}</p>
+            {/* <p>{detailText.bodyText}</p> */}
         <table border="1">
             <thead>
                 <tr>
