@@ -9,6 +9,7 @@ import Layout from "./layout";
 
 export default function Home() {
 
+  
   return (
     <>
       <h4 className="text-2xl text-center">今日の天気</h4>
