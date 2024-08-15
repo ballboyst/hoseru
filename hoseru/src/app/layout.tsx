@@ -10,10 +10,15 @@ import "./globals.css";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const CommanDescription = () => {
+const CommanDescription = () => {
   const urlLivedoor = 'https://weather.tsukumijima.net/api/forecast/city/220040';
+
+  interface Description{
+    bodyText:string;
+  }
+
   const [forecastDataLivedoor,setForecastDataLivedoor] = useState(null);
-  const [detailText,setDetailText]= useState("天気の概要");
+  const [detailText,setDetailText]= useState<Description>({ bodyText:"天気の概要"});
 
   useEffect(() => {
       const fetchData = async () => {
@@ -21,7 +26,7 @@ export const CommanDescription = () => {
               const responseLivedoor = await fetch(urlLivedoor);
               const dataLivedoor = await responseLivedoor.json();
               setForecastDataLivedoor(dataLivedoor.forecasts);
-              setDetailText(dataLivedoor.description);
+              setDetailText({bodyText: dataLivedoor.description.bodyText || ""});
           } catch (error) {
               console.error('Error:', error);
           }
