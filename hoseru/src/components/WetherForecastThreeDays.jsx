@@ -22,12 +22,12 @@ export const WetherForecastThreeDays = () => {
                 setForecastData(dataMeteo.hourly);
                 console.log(dataMeteo.hourly);
 
-                const responseLivedoor = await fetch(urlLivedoor);
-                const dataLivedoor = await responseLivedoor.json();
-                setForecastDataLivedoor(dataLivedoor.forecasts);
-                setDetailText(dataLivedoor.description);
-                console.log(dataLivedoor.forecasts);
-                console.log(dataLivedoor.description);
+                // const responseLivedoor = await fetch(urlLivedoor);
+                // const dataLivedoor = await responseLivedoor.json();
+                // setForecastDataLivedoor(dataLivedoor.forecasts);
+                // setDetailText(dataLivedoor.description);
+                // console.log(dataLivedoor.forecasts);
+                // console.log(dataLivedoor.description);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -38,7 +38,7 @@ export const WetherForecastThreeDays = () => {
 
     return (
         <div>
-        <p>{detailText.bodyText}</p>
+        {/* <p>{detailText.bodyText}</p> */}
         <table border="1">
             <thead>
                 <tr>
@@ -46,28 +46,28 @@ export const WetherForecastThreeDays = () => {
                     <th>気温 (°C)</th>
                     <th>降水量 (mm)</th>
                     <th>降水確率(meteo) (%)</th>
-                    <th>降水確率(livedoor) (%)</th>
+                    {/* <th>降水確率(livedoor) (%)</th> */}
                 </tr>
             </thead>
             <tbody>
                 {forecastData && forecastData.time.slice(0, 72).map((time, index) => {
                     // 3時間ごとに表示
                     if (index % 6 === 0) {
-                        let livedoorChance = "Loading...";
-                        if (forecastDataLivedoor) {
-                            const livedoorIndex = Math.floor(index / 6);
-                            // Livedoorのデータが存在している場合
-                            if (livedoorIndex < forecastDataLivedoor.length) {
-                                const forecast = forecastDataLivedoor[livedoorIndex];
-                                // 時間帯に基づく降水確率を取得
-                                const hourKey = time.slice(0, 13); // 例: "2023-10-10T00"
-                                livedoorChance = forecast[`${hourKey}_06`] || 
-                                                 forecast[`${hourKey}_12`] || 
-                                                 forecast[`${hourKey}_18`] || 
-                                                 forecast[`${hourKey}_24`] || 
-                                                 "N/A";
-                            }
-                        }
+                        // let livedoorChance = "Loading...";
+                        // if (forecastDataLivedoor) {
+                        //     const livedoorIndex = Math.floor(index / 6);
+                        //     // Livedoorのデータが存在している場合
+                        //     if (livedoorIndex < forecastDataLivedoor.length) {
+                        //         const forecast = forecastDataLivedoor[livedoorIndex];
+                        //         // 時間帯に基づく降水確率を取得
+                        //         const hourKey = time.slice(0, 13); // 例: "2023-10-10T00"
+                        //         livedoorChance = forecast[`${hourKey}_06`] || 
+                        //                          forecast[`${hourKey}_12`] || 
+                        //                          forecast[`${hourKey}_18`] || 
+                        //                          forecast[`${hourKey}_24`] || 
+                        //                          "N/A";
+                        //     }
+                        // }
 
                         return (
                             <tr key={index}>
@@ -75,7 +75,7 @@ export const WetherForecastThreeDays = () => {
                                 <td>{forecastData.temperature_2m[index]}</td>
                                 <td>{forecastData.precipitation[index]}</td>
                                 <td>{forecastData.precipitation_probability[index]}</td>
-                                <td>{livedoorChance}</td>
+                                {/* <td>{livedoorChance}</td> */}
                             </tr>
                         );
                     }
