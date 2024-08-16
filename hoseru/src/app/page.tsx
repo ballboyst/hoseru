@@ -1,11 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { WetherForecast } from "../components/WetherForecastToday";
-import { WetherForecastThisWeek } from "../components/WetherForecastThisWeek";
-import { WetherForecastThreeDays } from "../components/WetherForecastThreeDays";
-import Link from "next/link";
-import Layout from "./layout";
+
 
 export default function Home() {
 
