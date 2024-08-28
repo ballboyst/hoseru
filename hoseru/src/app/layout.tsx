@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { WetherForecast } from "../components/WetherForecastToday";
+import { WetherForecastTomorrow } from "../components/WetherForecastTomorrow"
 import { WetherForecastThisWeek } from "../components/WetherForecastThisWeek";
 import { WetherForecastThreeDays } from "../components/WetherForecastThreeDays";
 import Link from "next/link";
@@ -17,6 +18,9 @@ export default function Layout({children}:{children: React.ReactNode}) {
   switch (pathname){
     case "/":
       WeatherComponent = WetherForecast;
+      break;
+    case "/tomorrow":
+      WeatherComponent = WetherForecastTomorrow;
       break;
     case "/three-days":
       WeatherComponent = WetherForecastThreeDays;
@@ -63,6 +67,9 @@ export default function Layout({children}:{children: React.ReactNode}) {
           <nav className="mt-5">
             <Link href="/" className="mr-6">
               今日
+            </Link>
+            <Link href="/tomorrow" className="mr-6">
+              翌日
             </Link>
             <Link href="/three-days" className="mr-6">
               3日間
