@@ -3,17 +3,21 @@
 import React from "react"
 import "../styles/styles.css"
 import { useEffect, useState} from "react";
+import {hamamatsu_location} from "./location";
+import { useContext } from "react";
+
+// export const WetherForecast = () => {
+//     const latitude = 34.76140; // 東京の緯度
+//     const longitude = 137.70141; // 東京の経度
+//     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,precipitation_probability&timezone=Asia/Tokyo`;
 
 export const WetherForecast = () => {
-    const latitude = 34.76140; // 東京の緯度
-    const longitude = 137.70141; // 東京の経度
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,precipitation_probability&timezone=Asia/Tokyo`;
-
+    <hamamatsu_location/>
     const [forecastData, setForecastData] = useState(null);
     const urlLivedoor = 'https://weather.tsukumijima.net/api/forecast/city/220040';
     const [forecastDataLivedoor,setForecastDataLivedoor] = useState(null);
     const [detailText,setDetailText]= useState("天気の概要");
-
+    const url=useContext;
     useEffect(() => {
         const fetchData = async () => {
             try {
