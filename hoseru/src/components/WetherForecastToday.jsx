@@ -3,8 +3,11 @@
 import React from "react"
 import "../styles/styles.css"
 import { useEffect, useState} from "react";
-import {hamamatsu_location} from "./location";
+import {hamamatsu_location} from "./Location";
 import { useContext } from "react";
+import { wetherForecast } from "./Location"
+
+
 
 // export const WetherForecast = () => {
 //     const latitude = 34.76140; // 東京の緯度
@@ -17,7 +20,7 @@ export const WetherForecast = () => {
     const urlLivedoor = 'https://weather.tsukumijima.net/api/forecast/city/220040';
     const [forecastDataLivedoor,setForecastDataLivedoor] = useState(null);
     const [detailText,setDetailText]= useState("天気の概要");
-    const url=useContext;
+    const url=useContext(WetherForecast);
     useEffect(() => {
         const fetchData = async () => {
             try {
