@@ -9,9 +9,30 @@ import { WetherForecastThreeDays } from "../components/WetherForecastThreeDays";
 import Link from "next/link";
 import "./globals.css";
 import { CommonDescription } from "../components/CommonDescription";
-
+import { locationContext } from "../providers/locationContext";
+import { useState, useEffect } from "react";
 
 export default function Layout({children}:{children: React.ReactNode}) {
+    const hamamatsu_latitude = 34.76140; // 浜松高丘北の緯度
+    const hamamatsu_longitude = 137.70141; // 浜松高丘北の経度
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${hamamatsu_latitude}&longitude=${hamamatsu_longitude}&hourly=temperature_2m,precipitation,precipitation_probability&timezone=Asia/Tokyo`;
+    const [forecastData, setForecastData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responseMeteo = await fetch(url);
+                const dataMeteo = await responseMeteo.json();
+                setForecastData(dataMeteo.hourly);
+                console.log(dataMeteo.hourly);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+
   const pathname = usePathname();
   let WeatherComponent;
 
@@ -30,7 +51,10 @@ export default function Layout({children}:{children: React.ReactNode}) {
       break;
     default:
       WeatherComponent = WetherForecast;
-  }
+  };
+
+
+
 
   return (
     <html>
@@ -61,7 +85,9 @@ export default function Layout({children}:{children: React.ReactNode}) {
           </p>
 
           <div>
+            <locationContext.Provider value={{forecastData}}>
             {children}
+            </locationContext.Provider>
           </div>
 
           <nav className="mt-5">

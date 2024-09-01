@@ -1,5 +1,5 @@
 import react from "React";
-import { createContext } from "react";
+import { createContext } from "React";
 import { useState } from "React";
 import { WetherForecast } from "./WetherForecastToday";
 
@@ -13,3 +13,9 @@ export const hamamatsu_location = () => {
         <WetherForecast/>
     </wetherContext.Provider>
 };
+
+// 豊橋の位置情報
+// const toyohashi_location = () => {
+//     const toyohashi_latitude = 34.43111;
+//     const toyohashi_longitude = 137.24025;
+// };
