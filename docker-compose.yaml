@@ -2,11 +2,11 @@ services:
   server:
     container_name: ${CONTAINER_NAME}
     build:
-      context: .
+      context: ./hoseruFront
       dockerfile: Dockerfile
-    working_dir: /app
     volumes:
-      - ./:/app:cached
+      - ./hoseruFront:/app
+      - /app/node_modules  # ホスト側のnode_modulesで上書きしないように
     ports:
       - "${FRONTEND_PORT}:3000"
     tty: true

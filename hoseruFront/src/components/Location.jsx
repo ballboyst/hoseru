@@ -3,7 +3,7 @@ import { createContext } from "React";
 import { useState } from "React";
 import { WetherForecast } from "./WetherForecastToday";
 
-export const hamamatsu_location = () => {
+export const Hamamatsu_location = () => {
     const hamamatsu_latitude = 34.76140; // 浜松高丘北の緯度
     const hamamatsu_longitude = 137.70141; // 浜松高丘北の経度
     const [url,setUrl] = useState("");
