@@ -14,3 +14,14 @@ services:
     #   /bin/sh -c '
     #   npx create-react-app@latest --ts
     #   '
+
+  backend:
+    container_name: hoseruback
+    build:
+      context: ./hoseruback
+      dockerfile: Dockerfile
+    volumes:
+      - ./hoseruBack:/api
+    ports:
+      - "8888:8888"
+    tty: true
